@@ -4,6 +4,11 @@
 .btn{
     margin-bottom: 20px;
 }
-.textarea{
-    
+
+
+@media (max-width: 769px) {
+    /* STYLES HERE */
+    .App-header{
+        margin: 20px 0px;
+    }
 }

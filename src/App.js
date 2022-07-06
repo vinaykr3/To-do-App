@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import 'antd/dist/antd.min.css'
 import { EditOutlined, DeleteOutlined, SearchOutlined } from "@ant-design/icons"
 import "./App.css";
-import { Table, Button, Form, Input, Select, Space, Modal,message } from "antd";
+import { Table, Button, Form, Input, Select, Space, Modal, message, Tag } from "antd";
 const { TextArea } = Input
 const selectOption = ["OPEN", "WORKING", "DONE", "OVERDUE"];
 const Dates = new Date();
@@ -20,7 +20,7 @@ export const App = () => {
   const [Description, setDescription] = useState("");
   const [date, setDate] = useState(fullDate);
   const [tagData, setTagData] = useState("");
-  const [tag, setTag] = useState([]);
+  const [tag, setTag] = useState(["hello"]);
 
   const columns = [
     {
@@ -71,6 +71,9 @@ export const App = () => {
       key: "5",
       title: "Tag",
       dataIndex: "tag",
+      // render: (data) => {
+
+      // }
 
     },
     {
@@ -121,17 +124,17 @@ export const App = () => {
 
   const AddData = () => {
     const Timestamp = Math.floor(Date.now() / 1000);
-    if(Title === ""){
+    if (Title === "") {
       setDataSource([...dataSource]);
       setNewData(true);
       message.error("Please fill Title field");
     }
-    else if(Description === ""){
+    else if (Description === "") {
       setDataSource([...dataSource]);
       setNewData(true);
       message.error("Please fill Description field");
     }
-    else if(Title !== "" || Description !== ""){
+    else if (Title !== "" || Description !== "") {
       setDataSource(
         [...dataSource, { Timestamp, Title, Description, date, tag, status }]
       )
@@ -141,7 +144,7 @@ export const App = () => {
       setStatus("OPEN");
       setNewData(false);
     }
-    
+
     // if (Title !== "" && Description !== "") {
     //   
     // }
@@ -150,10 +153,11 @@ export const App = () => {
   const tagValue = (e) => {
     setTagData(e.target.value);
   }
-  const handleTag = () => {
-    setTag([...tag, tagData])
-    setTagData("")
-    console.log(tag);
+  const handleTag = (e) => {
+    if (e.key === "Enter") {
+      setTag([...tag, tagData])
+      setTagData("")
+    }
   }
 
   const onDeletData = (Item) => {
@@ -198,13 +202,24 @@ export const App = () => {
             <Form.Item>
               <TextArea onChange={description} value={Description} maxLength="1000" placeholder='write here your description! and It is required!' />
             </Form.Item>
-
+            <Form.Item>
+              <Space direction='horizontal'>
+                {tag.map((tag, index) => {
+                  return (
+                    <Tag color="green" closable key={index}>
+                      {tag}
+                    </Tag>
+                  )
+                })}
+              </Space>
+            </Form.Item>
             <div style={{ display: "flex" }}>
               <Form.Item>
+
                 <Space direction="vertical" style={{ marginRight: "5px" }}>
                   <input type="date" onChange={onDate} value={Date} />
                 </Space>
-                <input type="text" onClick={handleTag} placeholder="fill and click (Optional)" onPressEnter={tagValue} value={tagData} />
+                <input type="text" onKeyPress={handleTag} placeholder="fill and click (Optional)" onChange={tagValue} value={tagData} />
               </Form.Item>
               <Form.Item name="status" rules={[
                 {
@@ -222,7 +237,7 @@ export const App = () => {
               </Form.Item>
             </div>
             <Form.Item>
-              <Button onClick={AddData} type="primary" htmlType="submit">Save Data</Button>
+              <Button onClick={AddData} type="primary">Save Data</Button>
             </Form.Item>
           </Form>
         </Modal>
@@ -275,7 +290,8 @@ export const App = () => {
                   setEditingData(pre => {
                     return { ...pre, tag: e.target.value }
                   })
-                }} />
+                  }} 
+                />
                 <Select value={editingData?.status} required={true} onChange={(e) => {
                   setEditingData(pre => {
                     return { ...pre, status: e }
