@@ -20,7 +20,7 @@ export const App = () => {
   const [Description, setDescription] = useState("");
   const [date, setDate] = useState(fullDate);
   const [tagData, setTagData] = useState("");
-  const [tag, setTag] = useState(["hello"]);
+  const [tag, setTag] = useState([]);
 
   const columns = [
     {

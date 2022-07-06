@@ -1,4 +1,14 @@
 # Getting Started with Create React App
+ 
+<!-- About this application -->
+
+This is a To-Do App using ant Design and react js , and it's features we can add new data and 
+likes Title, Description, Due Date, Tags, Status, and we can edit record existing in the todo list 
+and delete any record existing in todo list and some bonus features added like sorting (ascending & descending order), filter by status (one done working overdue), and search iteam by title
+
+
+
+ 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -1,12 +1,12 @@
 .App-header{
-    margin: 20px 200px;
+    margin: 20px 100px;
 }
 .btn{
     margin-bottom: 20px;
 }
 
 
-@media (max-width: 769px) {
+ @media (max-width: 769px) {
     /* STYLES HERE */
     .App-header{
         margin: 20px 0px;
